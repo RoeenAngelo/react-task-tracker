@@ -5,7 +5,7 @@ import AddTask from "./components/AddTask"
 
 
 function App() {
-  const [showAddTask, setShowAddTask] =useState(false)
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState(
     [
         {
@@ -51,7 +51,7 @@ function App() {
         showAddTask={showAddTask}
       />
       
-      { showAddTask && <AddTask onAdd={addTask} />}
+      { showAddTask && <AddTask onAddTask={addTask} />}
       
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask}  onToggleReminder={toggleReminder}/> : 'No Tasks To Show'
       

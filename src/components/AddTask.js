@@ -1,56 +1,79 @@
 import { useState } from 'react'
 
 
-function AddTask({ onAdd }) {
-  
-    const [text, setText] = useState('')
-    const [date, setDate] = useState('')
-    const [reminder, setReminder] = useState(false)
+function AddTask({ onAddTask }) {
+    
+    const [taskData, setTaskData] = useState(
+        {
+            text: "",
+            date: "",
+            reminder: false
+        }
+    )
+
+    function handleChange(e) {
+        const {name, value, type, checked} = e.target
+            setTaskData(prevTaskData => {
+                return {
+                    ...prevTaskData,
+                    [name] : type === "checkbox" ? checked : value
+                }
+            })
+    }
+
     
     function onSubmit(e) {
         e.preventDefault()
         
-        if (!text) {
+        if (!taskData.text) {
             alert('Please add a task')
             return
         }
 
-        onAdd({ text, date, reminder})
+        onAddTask({
+            text: taskData.text, 
+            date: taskData.date, 
+            reminder : taskData.reminder
+        })
 
-        setText('')
-        setDate('')
-        setReminder(false)
+        setTaskData( {
+            text: "",
+            date: "",
+            reminder: false
+        })
     }
 
 
     return (
+        
     <form className='add-form' onSubmit={onSubmit}>
         <div className='form-control'>
             <label>Task</label>
-            <input type='text' placeholder='Add Task'
-                value={text} 
-                onChange={(e) =>    
-                setText(e.target.value)
-                }
+            <input 
+                type='text' 
+                placeholder='Add Task'
+                value={taskData.text} 
+                onChange={handleChange}
+                name="text"
             />
         </div>
         <div className='form-control'>
             <label>Day and Time</label>
-            <input type='text' placeholder='Add Date' 
-                value={date} 
-                onChange={(e) =>    
-                    setDate(e.target.value)
-                    }
+            <input 
+                type='text' 
+                placeholder='Add Date' 
+                value={taskData.date} 
+                onChange={handleChange}
+                name="date"
             />
         </div>
         <div className='form-control form-control-check'>
             <label>Reminder</label>
-            <input type='checkbox'
-                value={reminder} 
-                onChange={(e) =>    
-                    setReminder(e.currentTarget.checked)
-                    }
-                checked={reminder}
+            <input 
+                type='checkbox'
+                onChange={handleChange}
+                checked={taskData.reminder}
+                name="reminder"
             />
         </div>
 
