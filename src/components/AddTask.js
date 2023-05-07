@@ -30,11 +30,7 @@ function AddTask({ onAddTask }) {
             return
         }
 
-        onAddTask({
-            text: taskData.text, 
-            date: taskData.date, 
-            reminder : taskData.reminder
-        })
+        onAddTask(taskData)
 
         setTaskData( {
             text: "",
@@ -77,7 +73,7 @@ function AddTask({ onAddTask }) {
             />
         </div>
 
-        <input className='btn btn-block' type='submit' value='Save Task' />
+        <button className='btn btn-block'>Save Task</button>
     </form>
   )
 }
