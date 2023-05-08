@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 function AddTask({ onAddTask }) {
     
-    const [taskData, setTaskData] = useState(
+    const [formData, setFormData] = useState(
         {
             text: "",
             date: "",
@@ -13,9 +13,9 @@ function AddTask({ onAddTask }) {
 
     function handleChange(e) {
         const {name, value, type, checked} = e.target
-            setTaskData(prevTaskData => {
+            setFormData(prevFormData => {
                 return {
-                    ...prevTaskData,
+                    ...prevFormData,
                     [name] : type === "checkbox" ? checked : value
                 }
             })
@@ -25,56 +25,58 @@ function AddTask({ onAddTask }) {
     function onSubmit(e) {
         e.preventDefault()
         
-        if (!taskData.text) {
+        if (!formData.text) {
             alert('Please add a task')
             return
         }
 
-        onAddTask(taskData)
+        onAddTask(formData)
 
-        setTaskData( {
+        setFormData( 
+            {
             text: "",
             date: "",
             reminder: false
-        })
+            }
+        )
     }
 
 
     return (
         
-    <form className='add-form' onSubmit={onSubmit}>
-        <div className='form-control'>
-            <label>Task</label>
-            <input 
-                type='text' 
-                placeholder='Add Task'
-                value={taskData.text} 
-                onChange={handleChange}
-                name="text"
-            />
-        </div>
-        <div className='form-control'>
-            <label>Day and Time</label>
-            <input 
-                type='text' 
-                placeholder='Add Date' 
-                value={taskData.date} 
-                onChange={handleChange}
-                name="date"
-            />
-        </div>
-        <div className='form-control form-control-check'>
-            <label>Reminder</label>
-            <input 
-                type='checkbox'
-                onChange={handleChange}
-                checked={taskData.reminder}
-                name="reminder"
-            />
-        </div>
+        <form className='add-form' onSubmit={onSubmit}>
+            <div className='form-control'>
+                <label>Task</label>
+                <input 
+                    type='text' 
+                    placeholder='Add Task'
+                    value={formData.text} 
+                    onChange={handleChange}
+                    name="text"
+                />
+            </div>
+            <div className='form-control'>
+                <label>Day and Time</label>
+                <input 
+                    type='text' 
+                    placeholder='Add Date' 
+                    value={formData.date} 
+                    onChange={handleChange}
+                    name="date"
+                />
+            </div>
+            <div className='form-control form-control-check'>
+                <label>Reminder</label>
+                <input 
+                    type='checkbox'
+                    onChange={handleChange}
+                    checked={formData.reminder}
+                    name="reminder"
+                />
+            </div>
 
-        <button className='btn btn-block'>Save Task</button>
-    </form>
+            <button className='btn btn-block'>Save Task</button>
+        </form>
   )
 }
 

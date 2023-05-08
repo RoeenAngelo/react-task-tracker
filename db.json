@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "Code",
+      "date": "Date and Time",
+      "reminder": true
+    },
+    {
+      "id": 2,
+      "text": "Surf",
+      "date": "Date and Time",
+      "reminder": true
+    },
+    {
+      "text": "Sam's Club",
+      "date": "Today after surfing",
+      "reminder": false,
+      "id": 3
+    }
+  ]
+}
